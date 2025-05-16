@@ -1,0 +1,44 @@
+﻿<Window
+    x:Class="MVVM_pratices_2.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MVVM_pratices_2"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:MVVM_pratices_2.View"
+    xmlns:vm="clr-namespace:MVVM_pratices_2.ViewModel"
+    Title="RPG Menu"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+
+    <Window.DataContext>
+        <local:Connector />
+    </Window.DataContext>
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:MainMenuViewModel}">
+            <view:MainMenuPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StartViewModel}">
+            <view:StartPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SaveLoadViewModel}">
+            <view:SaveLoadPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
+            <view:SettingsPage />
+        </DataTemplate>
+        <!--<DataTemplate DataType="{x:Type vm:RoleInfoViewModel}">
+            <view:RoleInfoView />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
+            <view:InventoryView />
+        </DataTemplate>-->
+
+    </Window.Resources>
+
+    <Grid>
+        <ContentControl Content="{Binding CurrentPage}" />
+    </Grid>
+</Window>
