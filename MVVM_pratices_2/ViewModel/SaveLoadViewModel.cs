@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MVVM_pratices_2.Model;
 using System.Windows.Input;
+using System.Windows;
 
 namespace MVVM_pratices_2.ViewModel
 {
@@ -13,7 +14,7 @@ namespace MVVM_pratices_2.ViewModel
     {
         public ObservableCollection<SaveSlot> SaveSlots { get; set; }
         public bool IsLoadMode { get; set; } // true: 讀檔；false: 存檔
-        public string ReturnTo { get; set; } = "Start";
+        public string ReturnTo { get; set; }
         public ICommand SelectSlotCommand { get; }
         public ICommand BackCommand { get; }
         public event Action<string> OnNavigate;
@@ -32,7 +33,7 @@ namespace MVVM_pratices_2.ViewModel
             };
 
             SelectSlotCommand = new RelayCommand(ExecuteSlot);
-            BackCommand = new RelayCommand(_ => OnNavigate?.Invoke("Start"));
+            BackCommand = new RelayCommand(o =>{OnNavigate?.Invoke(ReturnTo);});
         }
 
         private void ExecuteSlot(object param)

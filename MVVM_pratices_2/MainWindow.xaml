@@ -29,6 +29,15 @@
         <DataTemplate DataType="{x:Type vm:SettingsViewModel}">
             <view:SettingsPage />
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CreateCharacterViewModel}">
+            <view:CreateCharacterPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RoleInfoViewModel}">
+            <view:RoleInfoPage />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ConfirmDialogViewModel}">
+            <view:ConfirmDialog />
+        </DataTemplate>
         <!--<DataTemplate DataType="{x:Type vm:RoleInfoViewModel}">
             <view:RoleInfoView />
         </DataTemplate>

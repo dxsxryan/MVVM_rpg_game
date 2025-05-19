@@ -19,7 +19,7 @@ namespace MVVM_pratices_2.ViewModel
         public event Action<string> OnNavigate;
         public MainMenuViewModel()
         {
-            StartCommand = new RelayCommand(o => OnNavigate?.Invoke("Start"));
+            StartCommand = new RelayCommand(o => OnNavigate?.Invoke("CreateCharacter"));
             LoadCommand = new RelayCommand(o => OnNavigate?.Invoke("MainMenuLoad"));
             SettingsCommand = new RelayCommand(o => OnNavigate?.Invoke("Settings"));
             ExitCommand = new RelayCommand(o => Application.Current.Shutdown());

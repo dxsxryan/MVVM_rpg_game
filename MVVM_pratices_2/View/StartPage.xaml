@@ -35,7 +35,7 @@
                 <Button
                     Height="45"
                     Command="{Binding MonsterItemsCommand}"
-                    Content="怪物道具"
+                    Content="狩獵怪物"
                     FontSize="18" />
             </StackPanel>
 

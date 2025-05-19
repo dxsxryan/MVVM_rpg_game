@@ -21,7 +21,7 @@ namespace MVVM_pratices_2.ViewModel
 
         public StartViewModel()
         {
-            RoleInfoCommand = new RelayCommand(o => Show("角色資訊"));
+            RoleInfoCommand = new RelayCommand(o => OnNavigate?.Invoke("RoleInfo"));
             InventoryCommand = new RelayCommand(o => Show("背包道具"));
             MonsterItemsCommand = new RelayCommand(o => Show("怪物道具"));
             MenuCommand = new RelayCommand(o => OnNavigate?.Invoke("Menu"));

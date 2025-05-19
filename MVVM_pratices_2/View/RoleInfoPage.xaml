@@ -1,12 +1,107 @@
-﻿<UserControl x:Class="MVVM_pratices_2.View.RoleInfoPage"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:MVVM_pratices_2.View"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+﻿<UserControl
+    x:Class="MVVM_pratices_2.View.RoleInfoPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:MVVM_pratices_2.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Viewbox Stretch="Uniform">
+        <Grid Width="500" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="角色資訊" FontSize="26" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20" />
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <!-- 角色名稱 -->
+                    <RowDefinition Height="Auto" />
+                    <!-- HP -->
+                    <RowDefinition Height="Auto" />
+                    <!-- MP -->
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="角色名稱：" FontWeight="Bold" />
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Character.Name}" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="血量 (HP)：" FontWeight="Bold" />
+                <Grid Grid.Row="1" Grid.Column="1" Height="20">
+                    <ProgressBar Minimum="0"
+                                 Maximum="{Binding Character.HP}"
+                                 Value="{Binding Character.HP}"
+                                 Foreground="Red" />
+                    <TextBlock Text="{Binding HPDisplay}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" />
+                </Grid>
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="魔力 (MP)：" FontWeight="Bold" />
+                <Grid Grid.Row="2" Grid.Column="1" Height="20">
+                    <ProgressBar Minimum="0"
+                                 Maximum="{Binding Character.MP}"
+                                 Value="{Binding Character.MP}"
+                                 Foreground="Blue" />
+                    <TextBlock Text="{Binding MPDisplay}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold" />
+                </Grid>
+
+                <TextBlock Grid.Row="3" Grid.Column="0" Text="力量 (STR)：" FontWeight="Bold" />
+                <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Character.STR}" />
+
+                <TextBlock Grid.Row="4" Grid.Column="0" Text="防禦 (DEF)：" FontWeight="Bold" />
+                <TextBlock Grid.Row="4" Grid.Column="1" Text="{Binding Character.DEF}" />
+
+                <TextBlock Grid.Row="5" Grid.Column="0" Text="智力 (INT)：" FontWeight="Bold" />
+                <TextBlock Grid.Row="5" Grid.Column="1" Text="{Binding Character.INT}" />
+
+                <TextBlock Grid.Row="6" Grid.Column="0" Text="敏捷 (AGI)：" FontWeight="Bold" />
+                <TextBlock Grid.Row="6" Grid.Column="1" Text="{Binding Character.AGI}" />
+
+                <TextBlock Grid.Row="7" Grid.Column="0" Text="幸運 (LUK)：" FontWeight="Bold" />
+                <TextBlock Grid.Row="7" Grid.Column="1" Text="{Binding Character.LUK}" />
+
+                <TextBlock Grid.Row="8" Grid.Column="0" Text="金錢：" FontWeight="Bold" />
+                <TextBlock Grid.Row="8" Grid.Column="1" Text="{Binding Character.Money}" />
+
+                <TextBlock Grid.Row="9" Grid.Column="0" Text="持有道具數量：" FontWeight="Bold" />
+                <TextBlock Grid.Row="9" Grid.Column="1" Text="{Binding Character.Inventory.Count}" />
+
+                <TextBlock Grid.Row="10" Grid.Column="0" Text="遊玩時間：" FontWeight="Bold" />
+                <TextBlock Grid.Row="10" Grid.Column="1" Text="{Binding PlayTime}" />
+
+                <TextBlock Grid.Row="11" Grid.Column="0" Text="擊敗怪物數：" FontWeight="Bold" />
+                <TextBlock Grid.Row="11" Grid.Column="1" Text="{Binding MonsterKillCount}" />
+
+                <TextBlock Grid.Row="12" Grid.Column="0" Text="死亡次數：" FontWeight="Bold" />
+                <TextBlock Grid.Row="12" Grid.Column="1" Text="{Binding DeathCount}" />
+            </Grid>
+
+            <Button Grid.Row="2"
+                    Content="返回主頁面"
+                    Command="{Binding BackCommand}"
+                    Height="40"
+                    Margin="0,20,0,0"
+                    HorizontalAlignment="Center"
+                    Width="160" />
+        </Grid>
+    </Viewbox>
 </UserControl>
