@@ -44,9 +44,31 @@ namespace MVVM_pratices_2.ViewModel
             DecreaseCommand = new RelayCommand(DecreaseAttribute);
             ResetCommand = new RelayCommand(o => ResetAttributes());
             FinishCommand = new RelayCommand(o => Finish());
-            Character.PropertyChanged += (s, e) => OnPropertyChanged(nameof(Character));
-
         }
+
+        public void ResetCharacter()
+        {
+            Character = new CharacterData();
+            AvailablePoints = 10;
+            OnPropertyChanged(nameof(Character));
+            OnPropertyChanged(nameof(AvailablePoints));
+            OnPropertyChanged(nameof(HP));
+            OnPropertyChanged(nameof(MP));
+            OnPropertyChanged(nameof(STR));
+            OnPropertyChanged(nameof(DEF));
+            OnPropertyChanged(nameof(INT));
+            OnPropertyChanged(nameof(AGI));
+            OnPropertyChanged(nameof(LUK));
+        }
+
+        // 轉接能力值屬性供 UI 綁定
+        public int HP { get => Character.HP; set { Character.HP = value; OnPropertyChanged(); } }
+        public int MP { get => Character.MP; set { Character.MP = value; OnPropertyChanged(); } }
+        public int STR { get => Character.STR; set { Character.STR = value; OnPropertyChanged(); } }
+        public int DEF { get => Character.DEF; set { Character.DEF = value; OnPropertyChanged(); } }
+        public int INT { get => Character.INT; set { Character.INT = value; OnPropertyChanged(); } }
+        public int AGI { get => Character.AGI; set { Character.AGI = value; OnPropertyChanged(); } }
+        public int LUK { get => Character.LUK; set { Character.LUK = value; OnPropertyChanged(); } }
 
         private void IncreaseAttribute(object param)
         {
@@ -55,16 +77,15 @@ namespace MVVM_pratices_2.ViewModel
             {
                 switch (attr)
                 {
-                    case "HP": Character.HP++; break;
-                    case "MP": Character.MP++; break;
-                    case "STR": Character.STR++; break;
-                    case "DEF": Character.DEF++; break;
-                    case "INT": Character.INT++; break;
-                    case "AGI": Character.AGI++; break;
-                    case "LUK": Character.LUK++; break;
+                    case "HP": HP++; break;
+                    case "MP": MP++; break;
+                    case "STR": STR++; break;
+                    case "DEF": DEF++; break;
+                    case "INT": INT++; break;
+                    case "AGI": AGI++; break;
+                    case "LUK": LUK++; break;
                 }
                 AvailablePoints--;
-                OnPropertyChanged(attr);
             }
         }
 
@@ -75,33 +96,31 @@ namespace MVVM_pratices_2.ViewModel
                 bool canDecrease = false;
                 switch (attr)
                 {
-                    case "HP": canDecrease = Character.HP > 10; if (canDecrease) Character.HP--; break;
-                    case "MP": canDecrease = Character.MP > 10; if (canDecrease) Character.MP--; break;
-                    case "STR": canDecrease = Character.STR > 10; if (canDecrease) Character.STR--; break;
-                    case "DEF": canDecrease = Character.DEF > 10; if (canDecrease) Character.DEF--; break;
-                    case "INT": canDecrease = Character.INT > 10; if (canDecrease) Character.INT--; break;
-                    case "AGI": canDecrease = Character.AGI > 10; if (canDecrease) Character.AGI--; break;
-                    case "LUK": canDecrease = Character.LUK > 10; if (canDecrease) Character.LUK--; break;
+                    case "HP": canDecrease = HP > 10; if (canDecrease) HP--; break;
+                    case "MP": canDecrease = MP > 10; if (canDecrease) MP--; break;
+                    case "STR": canDecrease = STR > 10; if (canDecrease) STR--; break;
+                    case "DEF": canDecrease = DEF > 10; if (canDecrease) DEF--; break;
+                    case "INT": canDecrease = INT > 10; if (canDecrease) INT--; break;
+                    case "AGI": canDecrease = AGI > 10; if (canDecrease) AGI--; break;
+                    case "LUK": canDecrease = LUK > 10; if (canDecrease) LUK--; break;
                 }
                 if (canDecrease)
                 {
                     AvailablePoints++;
-                    OnPropertyChanged(attr);
                 }
             }
         }
 
         private void ResetAttributes()
         {
-            Character.HP = 10;
-            Character.MP = 10;
-            Character.STR = 10;
-            Character.DEF = 10;
-            Character.INT = 10;
-            Character.AGI = 10;
-            Character.LUK = 10;
+            HP = 10;
+            MP = 10;
+            STR = 10;
+            DEF = 10;
+            INT = 10;
+            AGI = 10;
+            LUK = 10;
             AvailablePoints = 10;
-            OnPropertyChanged(string.Empty);
         }
 
         private async void Finish()

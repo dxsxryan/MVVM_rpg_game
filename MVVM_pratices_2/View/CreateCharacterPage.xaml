@@ -9,236 +9,241 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibility"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibility" />
     </UserControl.Resources>
-    <Grid Margin="30" Background="#FAFAFA">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid
+            Width="600"
+            Margin="30"
+            Background="#FAFAFA">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <!--  通知提示區  -->
-        <TextBlock
-            Grid.Row="0"
-            Margin="0,0,0,10"
-            HorizontalAlignment="Center"
-            FontSize="14"
-            FontWeight="Bold"
-            Foreground="Red"
-            Text="{Binding Notification}"
-            Visibility="{Binding IsNotificationVisible, Converter={StaticResource BoolToVisibility}}" />
-
-        <!--  中央內容  -->
-        <StackPanel
-            Grid.Row="1"
-            Width="400"
-            Margin="10"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <TextBlock FontWeight="Bold" Text="角色名稱" />
-            <TextBox Text="{Binding Character.Name, UpdateSourceTrigger=PropertyChanged}" />
-
-            <TextBlock FontWeight="Bold" Text="剩餘點數：" />
+            <!--  通知提示區  -->
             <TextBlock
-                FontSize="16"
-                Foreground="DarkBlue"
-                Text="{Binding AvailablePoints}" />
+                Grid.Row="0"
+                Margin="0,0,0,10"
+                HorizontalAlignment="Center"
+                FontSize="14"
+                FontWeight="Bold"
+                Foreground="Red"
+                Text="{Binding Notification}"
+                Visibility="{Binding IsNotificationVisible, Converter={StaticResource BoolToVisibility}}" />
 
-            <!--  各屬性手動列出  -->
+            <!--  中央內容  -->
             <StackPanel
-                Margin="5"
+                Grid.Row="1"
+                Width="400"
+                Margin="10"
                 HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="HP" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="HP"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.HP}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="HP"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="MP" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="MP"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.MP}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="MP"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="STR" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="STR"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.STR}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="STR"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="DEF" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="DEF"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.DEF}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="DEF"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="INT" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="INT"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.INT}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="INT"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="AGI" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="AGI"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.AGI}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="AGI"
-                    Content="+" />
-            </StackPanel>
-            <StackPanel
-                Margin="5"
-                HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <TextBlock
-                    Width="40"
-                    VerticalAlignment="Center"
-                    Text="LUK" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding DecreaseCommand}"
-                    CommandParameter="LUK"
-                    Content="-" />
-                <TextBlock
-                    Width="30"
-                    Text="{Binding Character.LUK}"
-                    TextAlignment="Center" />
-                <Button
-                    Width="25"
-                    Margin="4,0"
-                    Command="{Binding IncreaseCommand}"
-                    CommandParameter="LUK"
-                    Content="+" />
-            </StackPanel>
-        </StackPanel>
+                VerticalAlignment="Center">
+                <TextBlock FontWeight="Bold" Text="角色名稱" />
+                <TextBox Text="{Binding Character.Name, UpdateSourceTrigger=PropertyChanged}" />
 
-        <!--  底部按鈕  -->
-        <StackPanel
-            Grid.Row="2"
-            Margin="0,20"
-            HorizontalAlignment="Center"
-            Orientation="Horizontal">
-            <Button
-                Width="100"
-                Height="35"
-                Command="{Binding ResetCommand}"
-                Content="重置" />
-            <Button
-                Width="100"
-                Height="35"
-                Command="{Binding FinishCommand}"
-                Content="完成" />
-        </StackPanel>
-    </Grid>
+                <TextBlock FontWeight="Bold" Text="剩餘點數：" />
+                <TextBlock
+                    FontSize="16"
+                    Foreground="DarkBlue"
+                    Text="{Binding AvailablePoints}" />
+
+                <!--  各屬性手動列出  -->
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="HP" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="HP"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding HP}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="HP"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="MP" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="MP"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding MP}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="MP"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="STR" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="STR"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding STR}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="STR"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="DEF" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="DEF"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding DEF}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="DEF"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="INT" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="INT"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding INT}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="INT"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="AGI" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="AGI"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding AGI}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="AGI"
+                        Content="+" />
+                </StackPanel>
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Width="40"
+                        VerticalAlignment="Center"
+                        Text="LUK" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding DecreaseCommand}"
+                        CommandParameter="LUK"
+                        Content="-" />
+                    <TextBlock
+                        Width="30"
+                        Text="{Binding LUK}"
+                        TextAlignment="Center" />
+                    <Button
+                        Width="25"
+                        Margin="4,0"
+                        Command="{Binding IncreaseCommand}"
+                        CommandParameter="LUK"
+                        Content="+" />
+                </StackPanel>
+            </StackPanel>
+
+            <!--  底部按鈕  -->
+            <StackPanel
+                Grid.Row="2"
+                Margin="0,20"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Height="35"
+                    Command="{Binding ResetCommand}"
+                    Content="重置" />
+                <Button
+                    Width="100"
+                    Height="35"
+                    Command="{Binding FinishCommand}"
+                    Content="完成" />
+            </StackPanel>
+        </Grid>
+    </Viewbox>
 </UserControl>

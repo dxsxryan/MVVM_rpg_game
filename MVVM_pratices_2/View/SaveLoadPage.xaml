@@ -9,12 +9,13 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid Margin="20" Background="#F2F2F2">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <Viewbox Stretch="Uniform">
+        <Grid Width="800" Margin="20" Background="#F2F2F2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
         <!--  標題  -->
         <TextBlock
@@ -67,4 +68,5 @@
             Command="{Binding BackCommand}"
             Content="返回" />
     </Grid>
+    </Viewbox>
 </UserControl>

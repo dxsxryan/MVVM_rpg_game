@@ -38,12 +38,9 @@
         <DataTemplate DataType="{x:Type vm:ConfirmDialogViewModel}">
             <view:ConfirmDialog />
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type vm:RoleInfoViewModel}">
-            <view:RoleInfoView />
-        </DataTemplate>
         <DataTemplate DataType="{x:Type vm:InventoryViewModel}">
-            <view:InventoryView />
-        </DataTemplate>-->
+            <view:InventoryPage />
+        </DataTemplate>
 
     </Window.Resources>
 

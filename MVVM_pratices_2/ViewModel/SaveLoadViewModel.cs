@@ -7,51 +7,124 @@ using System.Threading.Tasks;
 using MVVM_pratices_2.Model;
 using System.Windows.Input;
 using System.Windows;
+using System.IO;
+using System.Text.Json;
+using System;
+using MVVM_pratices_2.ViewModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace MVVM_pratices_2.ViewModel
 {
-    public class SaveLoadViewModel
+    public class SaveLoadViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<SaveSlot> SaveSlots { get; set; }
-        public bool IsLoadMode { get; set; } // true: 讀檔；false: 存檔
-        public string ReturnTo { get; set; }
-        public ICommand SelectSlotCommand { get; }
-        public ICommand BackCommand { get; }
-        public event Action<string> OnNavigate;
-
-        public SaveLoadViewModel(bool isLoadMode, string returnTo)
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            IsLoadMode = isLoadMode;
-            ReturnTo = returnTo;
-            BackCommand = new RelayCommand(_ => OnNavigate?.Invoke(ReturnTo));
-
-            SaveSlots = new ObservableCollection<SaveSlot>
-            {
-                new SaveSlot { SlotId = 1, CharacterName = "", Level = 10, Timestamp = DateTime.Now.AddMinutes(0) },
-                new SaveSlot { SlotId = 2, CharacterName = "", Level = 0, Timestamp = default },
-                new SaveSlot { SlotId = 3, CharacterName = "", Level = 0, Timestamp = default },
-            };
-
-            SelectSlotCommand = new RelayCommand(ExecuteSlot);
-            BackCommand = new RelayCommand(o =>{OnNavigate?.Invoke(ReturnTo);});
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void ExecuteSlot(object param)
+        public Action<string> OnNavigate { get; set; }
+
+        private readonly bool _isLoadMode;
+        private readonly string _origin;
+        private readonly Connector _connector;
+
+        public ObservableCollection<SaveSlot> SaveSlots { get; } = new();
+        public ICommand SelectSlotCommand { get; }
+        public ICommand BackCommand { get; }
+
+        public SaveLoadViewModel(bool isLoadMode, string origin, Connector connector)
         {
-            if (param is SaveSlot slot)
+            _isLoadMode = isLoadMode;
+            _origin = origin;
+            _connector = connector;
+
+            SelectSlotCommand = new RelayCommand(param =>
             {
-                if (IsLoadMode)
+                if (param is SaveSlot slot)
                 {
-                    System.Windows.MessageBox.Show($"讀取 {slot.CharacterName} Lv.{slot.Level} 的存檔。", "讀取成功");
+                    HandleSlot(slot.SlotId);
                 }
-                else
-                {
-                    slot.CharacterName = "亞倫";
-                    slot.Level = 99;
-                    slot.Timestamp = DateTime.Now;
-                    System.Windows.MessageBox.Show($"已儲存至欄位 {slot.SlotId}。", "儲存成功");
-                }
+            });
+
+            BackCommand = new RelayCommand(_ => OnNavigate?.Invoke(_origin));
+
+            for (int i = 1; i <= 3; i++)
+            {
+                SaveSlots.Add(LoadSlotMetadata(i));
             }
+        }
+
+        private void HandleSlot(int slot)
+        {
+            if (_isLoadMode)
+                LoadSlotFromFile(slot);
+            else
+                SaveSlotToFile(slot);
+        }
+
+        private void SaveSlotToFile(int slot)
+        {
+            var data = new SaveData
+            {
+                Character = _connector.CreateCharacterVM.Character,
+                PlayTimeSeconds = _connector.GetTotalPlayTimeSeconds(),
+                MonsterKills = 0,
+                DeathCount = 0,
+                SaveTime = DateTime.Now
+            };
+
+            string dir = Path.Combine(AppContext.BaseDirectory, "Save");
+            Directory.CreateDirectory(dir);
+            string path = Path.Combine(dir, $"slot{slot}.json");
+
+            var json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+            File.WriteAllText(path, json);
+
+            // 即時更新畫面顯示
+            SaveSlots[slot - 1] = LoadSlotMetadata(slot);
+        }
+        public void RefreshSlots()
+        {
+            SaveSlots.Clear();
+            for (int i = 1; i <= 3; i++)
+                SaveSlots.Add(LoadSlotMetadata(i));
+        }
+
+        private void LoadSlotFromFile(int slot)
+        {
+            string path = Path.Combine(AppContext.BaseDirectory, "Save", $"slot{slot}.json");
+            if (!File.Exists(path)) return;
+
+            var json = File.ReadAllText(path);
+            var data = JsonSerializer.Deserialize<SaveData>(json);
+
+            _connector.CreateCharacterVM.Character = data.Character;
+            _connector.SetLoadedPlayTime(data.PlayTimeSeconds);
+            _connector.StartPlayTimeTracking();
+
+            SaveSlots[slot - 1] = LoadSlotMetadata(slot);
+
+            OnNavigate?.Invoke("Start");
+        }
+
+
+        private SaveSlot LoadSlotMetadata(int slot)
+        {
+            string path = Path.Combine(AppContext.BaseDirectory, "Save", $"slot{slot}.json");
+            if (!File.Exists(path)) return new SaveSlot { SlotId = slot };
+
+            var json = File.ReadAllText(path);
+            var data = JsonSerializer.Deserialize<SaveData>(json);
+
+            return new SaveSlot
+            {
+                SlotId = slot,
+                CharacterName = data.Character.Name,
+                Level = data.Character.Level,
+                Timestamp = data.SaveTime
+            };
         }
     }
 }
